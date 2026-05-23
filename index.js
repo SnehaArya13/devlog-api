@@ -1,28 +1,34 @@
+require('dotenv').config()
 const express = require('express')
+const mongoose = require('mongoose')
+const User = require('./models/Users')
+
 const app = express()
 
-// Middleware to parse JSON bodies
+// Middleware
 app.use(express.json())
 
-// Route 1 — basic hello
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(async () => {
+    console.log('✅ MongoDB connected successfully')
+
+    const testUser = await User.create({
+      name: 'Sneha Test',
+      email: 'sneha@test.com',
+      password: '123456'
+    })
+    console.log('✅ Test user created:', testUser._id)
+  })
+  .catch((err) => console.log('❌ MongoDB connection error:', err))
+
+// Routes
 app.get('/', (req, res) => {
   res.json({ message: 'DevLog API is running' })
 })
 
-// Route 2 — hello with a name from URL
-app.get('/hello/:name', (req, res) => {
-  const { name } = req.params
-  res.json({ message: `Hello, ${name}!` })
-})
-
-// Route 3 — echo back whatever JSON you send
-app.post('/echo', (req, res) => {
-  const body = req.body
-  res.json({ youSent: body })
-})
-
-// Start the server
-const PORT = 3000
+// Start server
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`🚀 Server running on http://localhost:${PORT}`)
 })
