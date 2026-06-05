@@ -3,20 +3,22 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const authRoutes = require('./routes/auth')
+const sessionRoutes = require('./routes/sessions')
 const protect = require('./middleware/protect')
 
 const app = express()
 app.use(express.json())
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB connected successfully'))
-  .catch((err) => console.log('❌ MongoDB connection error:', err))
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch((err) => console.log('MongoDB connection error:', err))
 
 app.get('/', (req, res) => {
   res.json({ message: 'DevLog API is running' })
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/sessions', sessionRoutes)
 
 // Test protected route
 app.get('/api/me', protect, (req, res) => {
@@ -25,5 +27,5 @@ app.get('/api/me', protect, (req, res) => {
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`)
+  console.log(`Server running on http://localhost:${PORT}`)
 })
