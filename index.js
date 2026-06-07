@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const authRoutes = require('./routes/auth')
 const sessionRoutes = require('./routes/sessions')
 const goalRoutes = require('./routes/goals')
+const streakRoutes = require('./routes/streaks')
 
 const protect = require('./middleware/protect')
 
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/sessions', sessionRoutes)
 app.use('/api/goals', goalRoutes)
+app.use('/api/streaks', streakRoutes)
 
 // Test protected route
 app.get('/api/me', protect, (req, res) => {
