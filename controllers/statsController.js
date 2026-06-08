@@ -1,7 +1,7 @@
 const Session = require('../models/Session')
 
 // WEEKLY STATS
-const getWeeklyStats = async (req, res) => {
+const getWeeklyStats = async (req, res, next) => {
   try {
     const weekStart = new Date()
     weekStart.setHours(0, 0, 0, 0)
@@ -102,12 +102,12 @@ const getWeeklyStats = async (req, res) => {
     })
 
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message })
+    next(err)
   }
 }
 
 // ALL-TIME SUMMARY
-const getSummary = async (req, res) => {
+const getSummary = async (req, res, next) => {
   try {
     const overallStats = await Session.aggregate([
       {
@@ -182,12 +182,12 @@ const getSummary = async (req, res) => {
     })
 
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message })
+    next(err)
   }
 }
 
 // DAILY STATS
-const getDailyStats = async (req, res) => {
+const getDailyStats = async (req, res, next) => {
   try {
     const { date } = req.query
 
@@ -222,7 +222,7 @@ const getDailyStats = async (req, res) => {
     })
 
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message })
+    next(err)
   }
 }
 

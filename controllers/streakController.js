@@ -1,7 +1,7 @@
 const Session = require('../models/Session')
 const calculateStreak = require('../utils/calculateStreak')
 
-const getStreaks = async (req, res) => {
+const getStreaks = async (req, res, next) => {
   try {
     // get all sessions for this user, only need the date field
     const sessions = await Session.find(
@@ -36,7 +36,7 @@ const getStreaks = async (req, res) => {
     })
 
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message })
+  next(err)
   }
 }
 

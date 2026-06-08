@@ -2,7 +2,7 @@ const Goal = require('../models/Goal')
 const Session = require('../models/Session')
 
 // CREATE or SET a goal
-const setGoal = async (req, res) => {
+const setGoal = async (req, res, next) => {
   try {
     const { dailyTargetMinutes } = req.body
 
@@ -27,12 +27,12 @@ const setGoal = async (req, res) => {
     res.status(201).json({ success: true, goal })
 
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message })
+    next(err)
   }
 }
 
 // GET current goal + today's progress
-const getGoal = async (req, res) => {
+const getGoal = async (req, res, next) => {
   try {
     const goal = await Goal.findOne({ userId: req.user._id })
 
@@ -69,12 +69,12 @@ const getGoal = async (req, res) => {
     })
 
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message })
+    next(err)
   }
 }
 
 // UPDATE goal
-const updateGoal = async (req, res) => {
+const updateGoal = async (req, res, next) => {
   try {
     const { dailyTargetMinutes } = req.body
 
@@ -95,7 +95,7 @@ const updateGoal = async (req, res) => {
     res.status(200).json({ success: true, goal })
 
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message })
+    next(err)
   }
 }
 
