@@ -1,7 +1,4 @@
 const errorHandler = (err, req, res, next) => {
-  console.log('ERROR NAME:', err.name)
-  console.log('ERROR CODE:', err.code)
-  console.log('ERROR MESSAGE:', err.message)
   console.error(`❌ Error: ${err.message}`)
 
   // Mongoose validation error
