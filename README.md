@@ -2,14 +2,13 @@
 
 A REST API for developers to track their coding sessions, set daily goals, and visualize learning streaks and progress over time.
 
-Built as a backend internship project using Node.js, Express, and MongoDB.
+Built as a backend project using Node.js, Express, and MongoDB.
 
 ---
 
 ## Live Demo
 
-Base URL: `https://devlog-api.onrender.com` *(added after deployment on Day 10)*
-
+Base URL: `https://devlog-api-0gdd.onrender.com`
 ---
 
 ## Tech Stack
